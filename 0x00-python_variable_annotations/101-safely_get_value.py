@@ -5,7 +5,10 @@
 from typing import Mapping, Any, TypeVar, Union
 
 
-def safely_get_value(dct: Mapping, key: Any, default:Union[TypeVar("T"), None] = None) -> Union[Any, TypeVar("T")]:
+def safely_get_value(
+    dct: Mapping, key: Any, default: Union[TypeVar("T"), None] = None
+                    ) -> Union[Any, TypeVar("T")]:
+
     """Funtion to get a safely value
 
     Returns:
