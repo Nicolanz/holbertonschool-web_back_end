@@ -17,13 +17,17 @@ async def wait_n(n: int, max_delay: int) -> List[float]:
         List[float]: [List sorted of the generated floats]
     """
     float_list = []
+    sorted_list = []
 
     for i in range(n):
         float_list.append(await wait_random(max_delay))
 
-    for j in range(len(float_list)):
-        for n in range(j+1, len(float_list)):
-            if float_list[j] > float_list[n]:
-                float_list[j] = float_list[n]
-                float_list[n] = float_list[j]
-    return float_list
+    while float_list:
+        min_num = float_list[0]
+        for item in float_list:
+            if item < min_num:
+                min_num = item
+        sorted_list.append(min_num)
+        float_list.remove(min_num)
+
+    return sorted_list
