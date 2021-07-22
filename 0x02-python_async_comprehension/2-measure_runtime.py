@@ -3,7 +3,7 @@
 
 
 import asyncio
-import timeit
+import time
 async_comprehension = __import__('1-async_comprehension').async_comprehension
 
 
@@ -13,13 +13,12 @@ async def measure_runtime() -> float:
     Returns:
         float: [total time]
     """
-    start_time = timeit.default_timer()
+    start_time = time.monotonic()
     await asyncio.gather(
         async_comprehension(),
         async_comprehension(),
         async_comprehension(),
         async_comprehension()
     )
-    total_time = timeit.default_timer() - start_time
-
+    total_time = time.monotonic() - start_time
     return total_time
