@@ -13,23 +13,6 @@ class LFUCache(BaseCaching):
         self.lru_dict = {}
         self.lfu_dict = {}
 
-    def lfu_item(self):
-        """lfu item
-
-        Returns:
-            [list]: [list]
-        """
-        minimum = min(self.lfu_dict, key=self.lfu_dict.get)
-        my_list = []
-        my_list.append(minimum)
-
-        for lfu_key, lfu_val in self.lfu_dict.items():
-            if lfu_key not in my_list:
-                if lfu_val == self.lfu_dict[minimum]:
-                    my_list.append(lfu_key)
-
-        return my_list
-
     def put(self, key, item):
         """put function
 
@@ -40,36 +23,40 @@ class LFUCache(BaseCaching):
         if key is None or item is None:
             pass
         else:
-            if key in self.lfu_dict.keys():
-                self.lfu_dict[key] += 1
-            else:
-                self.lfu_dict[key] = 1
-            self.lru_dict[key] = datetime.now()
-            self.cache_data[key] = item
-
-            if len(self.cache_data) > BaseCaching.MAX_ITEMS:
-                new_list = self.lfu_item()
-
-                if len(new_list) > 1:
-                    my_value = self.lru_dict[new_list[0]]
-                    idx = new_list[0]
-
-                    for keys, values in self.lru_dict.items():
-                        if values < my_value and keys in new_list:
-                            my_value = values
-                            idx = keys
-
-                    print("DISCARD: {}".format(idx))
-                    self.cache_data.pop(idx)
-                    self.lfu_dict.pop(idx)
-                    self.lru_dict.pop(idx)
-
+            if len(self.cache_data) < BaseCaching.MAX_ITEMS or \
+                                    key in self.cache_data.keys():
+                if key in self.lfu_dict.keys():
+                    self.lfu_dict[key] += 1
                 else:
-                    print("DISCARD: {}".format(new_list[0]))
-                    self.cache_data.pop(new_list[0])
-                    self.lfu_dict.pop(new_list[0])
-                    self.lru_dict.pop(new_list[0])
-                
+                    self.lfu_dict[key] = 1
+                self.lru_dict[key] = datetime.now()
+                self.cache_data[key] = item
+
+            else:
+                min_value = min(list(self.lfu_dict.values()))
+                my_list = []
+
+                for my_key, my_value in self.lfu_dict.items():
+                    if my_value == min_value:
+                        my_list.append(my_key)
+
+                index = my_list[0]
+                tmp = self.lru_dict[my_list[0]]
+                for new_key, new_value in self.lru_dict.items():
+                    if new_key in my_list and new_value < tmp:
+                        tmp = new_value
+                        index = new_key
+                print("DISCARD: {}".format(index))
+                self.lru_dict.pop(index)
+                self.lfu_dict.pop(index)
+                self.cache_data.pop(index)
+
+                if key in self.lfu_dict.keys():
+                    self.lfu_dict[key] += 1
+                else:
+                    self.lfu_dict[key] = 1
+                self.lru_dict[key] = datetime.now()
+                self.cache_data[key] = item
 
     def get(self, key):
         """Module to get a value of the dict
@@ -84,8 +71,8 @@ class LFUCache(BaseCaching):
             return None
         try:
             value = self.cache_data[key]
-            self.lfu_dict[key] += 1
             self.lru_dict[key] = datetime.now()
+            self.lfu_dict[key] += 1
         except KeyError:
             return None
         return value
