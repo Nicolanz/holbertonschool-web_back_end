@@ -6,6 +6,11 @@ BaseCaching = __import__('base_caching').BaseCaching
 
 
 class LFUCache(BaseCaching):
+    """LFUCache class
+
+    Args:
+        BaseCaching ([type]): [Parent class]
+    """
     def __init__(self):
         """Init method
         """
