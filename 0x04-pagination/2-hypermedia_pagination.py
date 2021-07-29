@@ -69,7 +69,6 @@ class Server:
     def get_hyper(self, page: int = 1, page_size: int = 10) -> dict:
         """Get hyper page
         """
-        index = index_range(page, page_size)
         data = self.get_page(page, page_size)
         size = len(data)
 
@@ -83,11 +82,14 @@ class Server:
         else:
             next_page = page + 1
 
-        total = math.ceil(len(self.dataset()) / page_size)
+        try:
+            total = int(round(len(self.dataset()) / size))
+        except ZeroDivisionError:
+            total = 195
 
         my_dict = {
-            "page_size": size,
             "page": page,
+            "page_size": size,
             "data": data,
             "next_size": next_page,
             "prev_page": prev_page,
