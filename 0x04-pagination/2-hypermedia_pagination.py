@@ -3,7 +3,7 @@
 
 import csv
 import math
-from typing import List, Tuple
+from typing import List, Tuple, Dict
 
 
 def index_range(page: int, page_size: int) -> Tuple[int, int]:
@@ -66,7 +66,7 @@ class Server:
                 return []
         return my_list
 
-    def get_hyper(self, page: int = 1, page_size: int = 10) -> dict:
+    def get_hyper(self, page: int = 1, page_size: int = 10) -> Dict:
         """Get hyper page
         """
         data = self.get_page(page, page_size)
@@ -82,14 +82,11 @@ class Server:
         else:
             next_page = page + 1
 
-        try:
-            total = int(round(len(self.dataset()) / size))
-        except ZeroDivisionError:
-            total = 195
+        total = math.ceil(len(self.dataset()) / page_size)
 
         my_dict = {
-            "page": page,
             "page_size": size,
+            "page": page,
             "data": data,
             "next_size": next_page,
             "prev_page": prev_page,
