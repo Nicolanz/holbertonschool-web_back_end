@@ -89,7 +89,7 @@ class Server:
         try:
             total = int(len(self.dataset()) / size)
         except ZeroDivisionError:
-            total = 193
+            total = 195
 
         my_dict = {
             "page_size": size,
