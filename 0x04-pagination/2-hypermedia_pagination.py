@@ -87,7 +87,7 @@ class Server:
             next_page = page + 1
 
         try:
-            total = int(len(self.dataset()) / size)
+            total = int(round(len(self.dataset()) / size))
         except ZeroDivisionError:
             total = 195
 
