@@ -71,10 +71,7 @@ class Server:
         """
         index = index_range(page, page_size)
         data = self.get_page(page, page_size)
-        size = 0
-
-        for i in range(len(data)):
-            size += 1
+        size = len(data)
 
         if page <= 1:
             prev_page = None
@@ -87,7 +84,7 @@ class Server:
             next_page = page + 1
 
         try:
-            total = int(round(len(self.dataset()) / size))
+            total = math.ceil(len(self.dataset()) / page_size)
         except ZeroDivisionError:
             total = 195
 
