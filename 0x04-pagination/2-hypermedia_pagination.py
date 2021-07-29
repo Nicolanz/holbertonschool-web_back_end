@@ -83,10 +83,7 @@ class Server:
         else:
             next_page = page + 1
 
-        try:
-            total = math.ceil(len(self.dataset()) / page_size)
-        except ZeroDivisionError:
-            total = 195
+        total = math.ceil(len(self.dataset()) / page_size)
 
         my_dict = {
             "page_size": size,
