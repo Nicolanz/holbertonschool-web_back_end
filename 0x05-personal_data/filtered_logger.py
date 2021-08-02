@@ -8,7 +8,7 @@ def filter_datum(fields: List[str],
                  redaction: str, message: str,
                  separator: str) -> str:
     """Filter function"""
-    new_str = re.sub(fields[0] + '=[a-z]*' + separator, fields[0] + "=" +
-                     redaction + separator, message)
-    return re.sub(fields[1] + '=' + '.*' + separator, fields[1] +
-                  "=" + redaction + separator, new_str)
+    for i in fields:
+        message = re.sub(i + '(=[a-z]*|=.*)' + separator, i + "=" +
+                         redaction + separator, message)
+    return message
