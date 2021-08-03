@@ -5,6 +5,7 @@ from typing import List
 import logging
 import csv
 
+
 PII_FIELDS = ("esto", "esto", "esto", "esto", "esto")
 
 
