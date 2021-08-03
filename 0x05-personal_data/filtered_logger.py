@@ -41,6 +41,6 @@ def filter_datum(fields: List[str],
 
 def get_logger() -> logging.Logger:
     """Get logger function"""
-    user_data = logging.getLogger(name="user_data")
+    user_data = logging.getLogger(name="user")
     user_data.addHandler(RedactingFormatter)
     return user_data
