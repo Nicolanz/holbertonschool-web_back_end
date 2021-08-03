@@ -5,28 +5,7 @@ from typing import List
 import logging
 import csv
 
-
-PII_FIELDS = ("esto", "esto", "esto", "esto", "esto")
-
-
-class Server:
-    """Server class to paginate a database of popular baby names.
-    """
-    DATA_FILE = "Popular_Baby_Names.csv"
-
-    def __init__(self):
-        self.__dataset = None
-
-    def dataset(self) -> List[List]:
-        """Cached dataset
-        """
-        if self.__dataset is None:
-            with open(self.DATA_FILE) as f:
-                reader = csv.reader(f)
-                dataset = [row for row in reader]
-            self.__dataset = dataset[1:]
-
-        return self.__dataset
+PII_FIELDS = ("name", "email", "phone", "last_login", "user_agent")
 
 
 class RedactingFormatter(logging.Formatter):
@@ -62,4 +41,10 @@ def filter_datum(fields: List[str],
 
 def get_logger() -> logging.Logger:
     """Get logger"""
-    return logging.getLogger("user_data")
+    logger = logging.getLogger("user_data")
+    logger.setLevel(logging.INFO)
+    logger.propagate = False
+    handler = logging.StreamHandler()
+    handler.setFormatter(RedactingFormatter(list(PII_FIELDS)))
+    logger.addHandler(handler)
+    return logger
