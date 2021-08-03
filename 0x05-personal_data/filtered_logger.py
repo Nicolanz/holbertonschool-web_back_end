@@ -5,7 +5,7 @@ from typing import List
 import logging
 
 
-PII_FIELDS: tuple = ("name", "email", "phone", "last_login", "ip")
+PII_FIELDS: tuple = ("name", "email", "phone", "last_login", "password")
 
 
 class RedactingFormatter(logging.Formatter):
@@ -41,6 +41,6 @@ def filter_datum(fields: List[str],
 
 def get_logger() -> logging.Logger:
     """Get logger function"""
-    logger = logging.getLogger("user_data")
+    logger = logging.getLogger(name="user_data")
     logger.addHandler(RedactingFormatter)
     return logger
