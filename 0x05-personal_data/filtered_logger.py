@@ -3,9 +3,29 @@
 import re
 from typing import List
 import logging
+import csv
+
+PII_FIELDS = ("esto", "esto", "esto", "esto", "esto")
 
 
-PII_FIELDS: tuple = ("name", "email", "phone", "last_login", "password")
+class Server:
+    """Server class to paginate a database of popular baby names.
+    """
+    DATA_FILE = "Popular_Baby_Names.csv"
+
+    def __init__(self):
+        self.__dataset = None
+
+    def dataset(self) -> List[List]:
+        """Cached dataset
+        """
+        if self.__dataset is None:
+            with open(self.DATA_FILE) as f:
+                reader = csv.reader(f)
+                dataset = [row for row in reader]
+            self.__dataset = dataset[1:]
+
+        return self.__dataset
 
 
 class RedactingFormatter(logging.Formatter):
@@ -38,9 +58,6 @@ def filter_datum(fields: List[str],
                          redaction, message)
     return message
 
-
 def get_logger() -> logging.Logger:
-    """Get logger function"""
-    user_data = logging.getLogger(name="user")
-    user_data.addHandler(RedactingFormatter)
-    return user_data
+    """Get logger"""
+    return logging.getLogger("user_data")
