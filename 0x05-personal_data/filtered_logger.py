@@ -20,10 +20,9 @@ class RedactingFormatter(logging.Formatter):
 
     def format(self, record: logging.LogRecord) -> str:
         """Format method"""
-        logging.basicConfig(level=record.levelname,
-                            format=RedactingFormatter.FORMAT)
-        logging.info(filter_datum(self.fields, self.REDACTION,
-                     record.msg, self.SEPARATOR))
+        msg = filter_datum(self.fields, self.REDACTION,
+                           super().format(record), self.SEPARATOR)
+        return msg
 
 
 def filter_datum(fields: List[str],
