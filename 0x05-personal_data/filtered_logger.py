@@ -51,7 +51,7 @@ def get_logger() -> logging.Logger:
     return logger
 
 
-def get_db() -> mysql.connector.connection_cext.CMySQLConnection:
+def get_db() -> mysql.connector:
     """Connects to secure database"""
     user = os.environ.get('PERSONAL_DATA_DB_USERNAME')
     password = os.environ.get('PERSONAL_DATA_DB_PASSWORD')
