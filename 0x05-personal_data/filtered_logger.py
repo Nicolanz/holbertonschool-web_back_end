@@ -3,7 +3,8 @@
 import re
 from typing import List
 import logging
-import csv
+import mysql.connector
+import os
 
 PII_FIELDS = ("name", "email", "password", "ssn", "phone")
 
@@ -48,3 +49,16 @@ def get_logger() -> logging.Logger:
     handler.setFormatter(RedactingFormatter(list(PII_FIELDS)))
     logger.addHandler(handler)
     return logger
+
+
+def get_db() -> mysql.connector.connection_cext.CMySQLConnection:
+    """Connects to secure database"""
+    user = os.environ.get('PERSONAL_DATA_DB_USERNAME')
+    password = os.environ.get('PERSONAL_DATA_DB_PASSWORD')
+    host = os.environ.get('PERSONAL_DATA_DB_HOST')
+    db = os.environ.get('PERSONAL_DATA_DB_NAME')
+
+    connector = mysql.connector.connect(user=user, password=password,
+                                        host=host,
+                                        database=db)
+    return connector
