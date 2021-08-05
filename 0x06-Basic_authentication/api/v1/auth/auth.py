@@ -8,9 +8,7 @@ class Auth:
     """Auth Main Class"""
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """Function to require auth"""
-        if path is None:
-            return True
-        if len(excluded_paths) == 0 or excluded_paths is None:
+        if path is None or excluded_paths is None or len(excluded_paths) == 0:
             return True
         if path[-1:] != '/':
             path = path + '/'
