@@ -35,4 +35,4 @@ def not_authorized():
 @app_views.route('/forbidden', methods=['GET'], strict_slashes=False)
 def forbidden_auth():
     """Routes Forbidden auth for a request"""
-    abort(401)
+    abort(403)
