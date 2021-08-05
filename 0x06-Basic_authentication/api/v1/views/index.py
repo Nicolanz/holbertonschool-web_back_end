@@ -28,5 +28,11 @@ def stats() -> str:
 
 @app_views.route('/unauthorized', methods=['GET'], strict_slashes=False)
 def not_authorized():
-    """Route Not authorized route"""
+    """Routes Not authorized"""
+    abort(401)
+
+
+@app_views.route('/forbidden', methods=['GET'], strict_slashes=False)
+def forbidden_auth():
+    """Routes Forbidden auth for a request"""
     abort(401)
