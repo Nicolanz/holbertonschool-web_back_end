@@ -26,7 +26,7 @@ def stats() -> str:
     return jsonify(stats)
 
 
-@app_views.route('/unauthorized', methods=['GET'],)
+@app_views.route('/unauthorized', methods=['GET'], strict_slashes=False)
 def not_authorized():
     """Route Not authorized route"""
-    not_auth = abort(401, description="Unauthorized")
+    abort(401)
