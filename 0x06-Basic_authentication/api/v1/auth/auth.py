@@ -10,7 +10,7 @@ class Auth:
         """Function to require auth"""
         if path is None:
             return True
-        if len(excluded_paths) <= 0 or excluded_paths is None:
+        if len(excluded_paths) == 0 or excluded_paths is None:
             return True
         if path[-1] != '/':
             new_path = path + '/'
