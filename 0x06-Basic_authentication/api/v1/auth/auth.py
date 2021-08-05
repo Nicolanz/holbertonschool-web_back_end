@@ -19,8 +19,6 @@ class Auth:
 
         if new_path in excluded_paths:
             return False
-        else:
-            return True
 
     def authorization_header(self, request=None) -> str:
         """function to get the auth header"""
