@@ -2,6 +2,7 @@
 """Module containing the BasicAuth class that inherirs from Auth class"""
 from .auth import Auth
 import base64
+import binascii
 
 
 class BasicAuth(Auth):
