@@ -54,10 +54,14 @@ class BasicAuth(Auth):
                 user_pwd is None or type(user_pwd) != str:
             return None
         user = User()
-        obj = user.search()[0]
+        objs = user.search()
+        obj = None
 
-        if obj.__dict__['email'] != user_email or \
-                obj.is_valid_password(user_pwd) is False:
+        for i in objs:
+            if i.__dict__['email'] == user_email:
+                obj = i
+
+        if not obj or obj.is_valid_password(user_pwd) is False:
             return None
 
         return obj
