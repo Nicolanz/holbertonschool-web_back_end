@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Module containing the BasicAuth class that inherirs from Auth class"""
 from .auth import Auth
+from models.user import User
+from typing import TypeVar
 import base64
 import binascii
 
@@ -43,3 +45,19 @@ class BasicAuth(Auth):
 
         values = decoded_base64_authorization_header.split(':')
         return values[0], values[1]
+
+    def user_object_from_credentials(
+            self, user_email: str, user_pwd: str) -> TypeVar('User'):
+        """Method to get a User object"""
+
+        if user_email is None or type(user_email) != str or \
+                user_pwd is None or type(user_pwd) != str:
+            return None
+        user = User()
+        obj = user.search()[0]
+
+        if obj.__dict__['email'] != user_email or \
+                obj.is_valid_password(user_pwd) is False:
+            return None
+
+        return obj
