@@ -13,6 +13,22 @@ class Auth:
         if path[-1:] != '/':
             path = path + '/'
 
+        for i in excluded_paths:
+
+            if '*' in i:
+                idx = i.find("*") - 1
+                my_list = []
+                my_str = ""
+
+                while i[idx] != '/':
+                    my_list.insert(0, i[idx])
+                    idx -= 1
+
+                my_str = my_str.join(my_list)
+
+                if my_str in path:
+                    return False
+
         if path in excluded_paths:
             return False
         return True
