@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Module containing the BasicAuth class that inherirs from Auth class"""
 from .auth import Auth
+import base64
 
 
 class BasicAuth(Auth):
@@ -17,3 +18,16 @@ class BasicAuth(Auth):
             if len(values) <= 1:
                 return None
             return values[1]
+
+    def decode_base64_authorization_header(
+        self, base64_authorization_header: str
+            ) -> str:
+        """Base64 decode method"""
+        if base64_authorization_header is None or \
+                type(base64_authorization_header) != str:
+            return None
+        try:
+            s = base64.b64decode(base64_authorization_header)
+            return s.decode('utf-8')
+        except binascii.Error:
+            return None
