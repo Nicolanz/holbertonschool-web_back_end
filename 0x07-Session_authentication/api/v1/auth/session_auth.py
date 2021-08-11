@@ -2,6 +2,7 @@
 """Module containing the SessionAuth subclass"""
 import uuid
 from .auth import Auth
+from models.user import User
 
 
 class SessionAuth(Auth):
@@ -24,3 +25,12 @@ class SessionAuth(Auth):
 
         value = SessionAuth.user_id_by_session_id.get(session_id)
         return value
+
+    def current_user(self, request=None):
+        """Method to get a user by a cookies"""
+        cookie_value = self.session_cookie(request)
+        user_id = self.user_id_for_session_id(cookie_value)
+        user = User()
+        obj = user.get(user_id)
+
+        return obj
