@@ -36,7 +36,7 @@ class SessionAuth(Auth):
         return obj
 
     def destroy_session(self, request=None):
-        """Destroy method"""
+        """Destroy method to delete a session"""
         if request is None:
             return False
 
@@ -48,5 +48,8 @@ class SessionAuth(Auth):
         if user_id is None:
             return False
 
-        del SessionAuth.user_id_by_session_id[user_id]
+        for key, value in SessionAuth.user_id_by_session_id.items():
+            if value == user_id:
+                del SessionAuth.user_id_by_session_id[key]
+                break
         return True
