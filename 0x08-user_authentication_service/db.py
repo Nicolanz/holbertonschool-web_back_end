@@ -38,5 +38,6 @@ class DB:
         newUser.email = email
         newUser.hashed_password = hashed_password
         session.add(newUser)
+        session.commit()
 
         return(newUser)
