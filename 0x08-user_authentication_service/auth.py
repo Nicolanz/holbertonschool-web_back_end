@@ -36,14 +36,15 @@ class Auth:
         except NoResultFound:
             return False
 
-    def create_session(self, email: str):
+    def create_session(self, email: str) -> str:
+        """Method to assign a unique id"""
         try:
             user = self._db.find_user_by(email=email)
             u_id = _generate_uuid()
             self._db.update_user(user.id, id=u_id)
             return u_id
         except NoResultFound:
-            return None
+            pass
 
 
 def _hash_password(password: str) -> bytes:
