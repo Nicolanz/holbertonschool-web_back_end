@@ -6,7 +6,6 @@ import uuid
 from db import DB
 from user import User
 from sqlalchemy.orm.exc import NoResultFound
-from sqlalchemy.exc import InvalidRequestError
 from typing import Union
 
 
@@ -48,14 +47,14 @@ class Auth:
         except NoResultFound:
             return None
 
-    def get_user_from_session_id(self, session_id: str) -> Union[User, None]:
+    def get_user_from_session_id(self, session_id: str) -> Union[None, User]:
         """Method to get a user from a session id"""
+        if not session_id:
+            return None
         try:
             my_user = self._db.find_user_by(session_id=session_id)
             return my_user
         except NoResultFound:
-            return None
-        except InvalidRequestError:
             return None
 
 
