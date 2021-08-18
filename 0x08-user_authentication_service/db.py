@@ -9,7 +9,8 @@ from user import Base, User
 
 
 class DB:
-
+    """DB class
+    """
     def __init__(self):
         """Initialize a new DB instance
         """
@@ -32,7 +33,7 @@ class DB:
         newUser = User(email=email, hashed_password=hashed_password)
         self._session.add(newUser)
         self._session.commit()
-        return(newUser)
+        return newUser
 
     def find_user_by(self, **kwargs) -> User:
         """Method to find a user"""
