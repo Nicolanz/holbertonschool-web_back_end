@@ -42,10 +42,5 @@ class DB:
 
     def find_user_by(self, **kwargs) -> User:
         """Method to find a user"""
-        try:
-            instance = self._session.query(User).filter_by(**kwargs)[0]
-            return instance
-        except InvalidRequestError:
-            raise InvalidRequestError
-        except IndexError:
-            raise NoResultFound
+        instance = self._session.query(User).filter_by(**kwargs).one()
+        return instance
