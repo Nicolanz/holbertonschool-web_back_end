@@ -37,7 +37,7 @@ class Auth:
         except NoResultFound:
             return False
 
-    def create_session(self, email: str) -> str:
+    def create_session(self, email: str) -> Union[str, None]:
         """Method to assign a session_id"""
         try:
             user = self._db.find_user_by(email=email)
