@@ -5,6 +5,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
+from sqlalchemy.orm.exc import NoResultFound
+from sqlalchemy.exc import InvalidRequestError
 
 from user import Base, User
 
@@ -36,3 +38,13 @@ class DB:
         self._session.add(newUser)
         self._session.commit()
         return(newUser)
+
+    def find_user_by(self, **kwargs: dict) -> User:
+        """Method to find a user"""
+        try:
+            instance = self._session.query(User).filter_by(**kwargs)[0]
+            return instance
+        except InvalidRequestError:
+            raise InvalidRequestError()
+        except IndexError:
+            raise NoResultFound()
