@@ -50,3 +50,14 @@ class DB:
             raise InvalidRequestError
         except IndexError:
             raise NoResultFound
+
+    def update_user(self, user_id: int, **kwargs) -> None:
+        """Method to update a user"""
+        user = self.find_user_by(id=user_id)
+        try:
+            for key, value in kwargs.items():
+                user.key = value
+        except ValueError:
+            raise ValueError
+
+        self._session.commit()
