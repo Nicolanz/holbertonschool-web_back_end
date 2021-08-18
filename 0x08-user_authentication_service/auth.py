@@ -2,10 +2,10 @@
 """Auth module"""
 
 import bcrypt
+import uuid
 from db import DB
 from user import User
 from sqlalchemy.orm.exc import NoResultFound
-import uuid
 
 
 class Auth:
@@ -44,7 +44,7 @@ class Auth:
             self._db.update_user(user.id, session_id=session_id)
             return session_id
         except NoResultFound:
-            return
+            return None
 
 
 def _hash_password(password: str) -> bytes:
