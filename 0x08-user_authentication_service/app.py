@@ -19,7 +19,7 @@ def bienvenue() -> str:
 
 
 @app.route('/users', methods=['POST'], strict_slashes=False)
-def register_user() -> str:
+def users() -> str:
     """Function to register a user from the Flask app"""
     email = request.form.get("email")
     password = request.form.get("password")
