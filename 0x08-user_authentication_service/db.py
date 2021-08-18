@@ -40,7 +40,7 @@ class DB:
         self._session.commit()
         return(newUser)
 
-    def find_user_by(self, **kwargs: Dict[str, int]) -> User:
+    def find_user_by(self, **kwargs) -> User:
         """Method to find a user"""
         try:
             instance = self._session.query(User).filter_by(**kwargs)[0]
