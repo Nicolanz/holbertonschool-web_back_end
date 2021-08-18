@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Route module for the Flask app"""
 
-from flask import Flask, jsonify, request, abort, make_response
+from flask import Flask, jsonify, request, abort, redirect, url_for, Response
 from sqlalchemy.orm.exc import NoResultFound
 from auth import Auth
 
@@ -48,6 +48,19 @@ def login() -> str:
         return res
     else:
         abort(401)
+
+
+@app.route('/sessions', methods=['DELETE'], strict_slashes=False)
+def logout():
+    """Function to kill a session from the Flask App"""
+    try:
+        session_id = request.cookies.get("session_id")
+        user = AUTH.get_user_from_session_id(session_id)
+        AUTH.destroy_session(user.id)
+        return redirect(url_for('login'))
+
+    except NoResultFound:
+        return Response(status=403)
 
 
 if __name__ == "__main__":
