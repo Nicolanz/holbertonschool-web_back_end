@@ -54,10 +54,11 @@ class DB:
     def update_user(self, user_id: int, **kwargs) -> None:
         """Method to update a user"""
         user = self.find_user_by(id=user_id)
-        try:
-            for key, value in kwargs.items():
+
+        for key, value in kwargs.items():
+            if key not in user.__dict__:
+                raise ValueError
+            else:
                 user.key = value
-        except ValueError:
-            raise ValueError
 
         self._session.commit()
