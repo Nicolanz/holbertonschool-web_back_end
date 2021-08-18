@@ -3,7 +3,8 @@
 
 import bcrypt
 
-def _hash_password(password:str) -> bytes:
+
+def _hash_password(password: str) -> bytes:
     """Creates a hash password"""
     new_password = bytes(password, 'utf-8')
     salt = bcrypt.gensalt()
