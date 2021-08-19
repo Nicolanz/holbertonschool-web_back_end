@@ -43,7 +43,11 @@ class Auth:
         except NoResultFound:
             return None
         u_id = _generate_uuid()
-        self._db.update_user(new_user.id, session_id=u_id)
+
+        try:
+            self._db.update_user(new_user.id, session_id=u_id)
+        except ValueError:
+            return None
         return u_id
 
     def get_user_from_session_id(self, session_id: str) -> User:
