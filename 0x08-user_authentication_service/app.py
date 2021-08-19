@@ -51,7 +51,7 @@ def login() -> str:
         abort(401)
 
 
-@app.route('/sessions', methods=['DELETE'])
+@app.route('/sessions', methods=['DELETE'], strict_slashes=False)
 def logout():
     """Function to kill a session from the Flask App"""
     session_id = request.cookies.get("session_id")
@@ -61,8 +61,7 @@ def logout():
             AUTH.destroy_session(user.id)
             return redirect('/')
         except NoResultFound:
-            pass
-    return abort(403)
+            return abort(403)
 
 
 if __name__ == "__main__":
