@@ -54,6 +54,7 @@ class DB:
     def update_user(self, user_id: int, **kwargs) -> None:
         """Method to update a user"""
         user = self.find_user_by(id=user_id)
+        session = self._session
 
         for key, value in kwargs.items():
             if key not in user.__dict__:
@@ -61,4 +62,4 @@ class DB:
             else:
                 user.key = value
 
-        self._session.commit()
+        session.commit()
