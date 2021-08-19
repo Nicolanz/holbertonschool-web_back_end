@@ -60,6 +60,5 @@ class DB:
             if key not in user.__dict__:
                 raise ValueError
             else:
-                user.key = value
-
+                setattr(user, key, value)
         session.commit()
