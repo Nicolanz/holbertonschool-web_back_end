@@ -64,6 +64,18 @@ class Auth:
             pass
         return None
 
+    def get_reset_password_token(self, email: str) -> str:
+        """Gets resets password token"""
+        try:
+            user = self._db.find_user_by(email=email)
+            token = uuid.uuid4()
+            token = str(token)
+            self._db.update_user(reset_token=token)
+
+            return token
+        except NoResultFound:
+            raise ValueError
+
 
 def _hash_password(password: str) -> bytes:
     """Creates a hash password"""
