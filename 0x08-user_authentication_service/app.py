@@ -58,10 +58,12 @@ def logout():
     if session_id:
         try:
             user = AUTH.get_user_from_session_id(session_id)
-            AUTH.destroy_session(user.id)
+            res = AUTH.destroy_session(user.id)
             return redirect('/')
         except NoResultFound:
-            pass
+            return abort(403)
+    if res is None:
+        return redirect('/')
     return abort(403)
 
 
