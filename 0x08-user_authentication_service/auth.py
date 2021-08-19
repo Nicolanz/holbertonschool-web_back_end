@@ -40,11 +40,11 @@ class Auth:
         """Method to assign a session_id"""
         try:
             new_user = self._db.find_user_by(email=email)
-            u_id = _generate_uuid()
-            self._db.update_user(new_user.id, session_id=u_id)
-            return u_id
         except NoResultFound:
             return None
+        u_id = _generate_uuid()
+        self._db.update_user(new_user.id, session_id=u_id)
+        return u_id
 
     def get_user_from_session_id(self, session_id: str) -> User:
         """Method to get a user from a session id"""
