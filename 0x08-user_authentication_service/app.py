@@ -56,14 +56,12 @@ def logout():
     """Function to kill a session from the Flask App"""
     session_id = request.cookies.get("session_id")
     if session_id:
-        try:
-            user = AUTH.get_user_from_session_id(session_id)
-            res = AUTH.destroy_session(user.id)
+        user = AUTH.get_user_from_session_id(session_id)
+        if user is not None:
+            AUTH.destroy_session(user.id)
             return redirect('/')
-        except NoResultFound:
+        else:
             return abort(403)
-    if res is None:
-        return redirect('/')
     return abort(403)
 
 
