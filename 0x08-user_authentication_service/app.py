@@ -82,7 +82,7 @@ def get_reset_password_token():
     """Resets a token"""
     email = request.form.get("email")
     if not email:
-        abort(403)
+        return abort(403)
 
     token = AUTH.get_reset_password_token(email)
 
@@ -103,8 +103,10 @@ def update_password():
         return jsonify({
             "email": "{}".format(email),
             "message": "Password updated"}), 200
-    except Exception:
-        abort(403)
+    except NoResultFound:
+        return abort(403)
+    except ValueError:
+        return abort(403)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port="5000")
