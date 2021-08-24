@@ -44,6 +44,4 @@ class TestGetJson(unittest.TestCase):
                       mock_requests: mock.MagicMock):
         """Method to test get_json function"""
         mock_requests(test_url)
-        mock_requests.return_value = test_payload
         mock_requests.assert_called_once()
-        self.assertEqual(mock_requests(), get_json(test_url))
