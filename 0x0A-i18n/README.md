@@ -17,10 +17,10 @@ Read or watch:
 
 
 ### [0. Basic Flask app](./templates/0-index.html)
-* First you will setup a basic Flask app in `0-app.py`. Create a single `/` route and an `index.html` template that simply outputs “Welcome to Holberton” as page title (`<title>`) and “Hello world” as header (`<h1>`).
+First you will setup a basic Flask app in `0-app.py`. Create a single `/` route and an `index.html` template that simply outputs “Welcome to Holberton” as page title (`<title>`) and “Hello world” as header (`<h1>`).
 
 ### [1. Basic Babel setup](./templates/1-index.html)
-* Install the Babel Flask extension:
+Install the Babel Flask extension:
 ```
 $ pip3 install flask_babel
 ```
@@ -31,10 +31,10 @@ Use `Config` to set Babel’s default locale (`"en"`) and timezone (`"UTC"`).
 Use that class as config for your Flask app.
 
 ### [2. Get locale from request](./templates/2-index.html)
-* Create a `get_locale` function with the `babel.localeselector` decorator. Use `request.accept_languages` to determine the best match with our supported languages.
+Create a `get_locale` function with the `babel.localeselector` decorator. Use `request.accept_languages` to determine the best match with our supported languages.
 
 ### [3. Parametrize templates](./templates/3-index.html)
-* Use the `_` or `gettext` function to parametrize your templates. Use the message IDs `home_title` and `home_header`.
+Use the `_` or `gettext` function to parametrize your templates. Use the message IDs `home_title` and `home_header`.
 
 Create a `babel.cfg` file containing
 ```
@@ -64,14 +64,14 @@ $ pybabel compile -d translations
 Reload the home page of your app and make sure that the correct messages show up.
 
 ### [4. Force locale with URL parameter](./templates/4-index.html)
-* In this task, you will implement a way to force a particular locale by passing the `locale=fr` parameter to your app’s URLs.
+In this task, you will implement a way to force a particular locale by passing the `locale=fr` parameter to your app’s URLs.
 
 In your `get_locale` function, detect if the incoming request contains `locale` argument and ifs value is a supported locale, return it. If not or if the parameter is not present, resort to the previous default behavior.
 
 Now you should be able to test different translations by visiting `http://127.0.0.1:5000?locale=[fr|en]`.
 
 ### [5. Mock logging in](./test_client.py)
-* Creating a user login system is outside the scope of this project. To emulate a similar behavior, copy the following user table in `5-app.py`.
+Creating a user login system is outside the scope of this project. To emulate a similar behavior, copy the following user table in `5-app.py`.
 ```
 users = {
     1: {"name": "Balou", "locale": "fr", "timezone": "Europe/Paris"},
@@ -89,7 +89,7 @@ Define a `before_request` function and use the `app.before_request` decorator to
 In your HTML template, if a user is logged in, in a paragraph tag, display a welcome message otherwise display a default message as shown in the table below.
 
 ### [6. Use user locale](./templates/6-index.html)
-* Change your `get_locale` function to use a user’s preferred local if it is supported.
+Change your `get_locale` function to use a user’s preferred local if it is supported.
 
 The order of priority should be
 
@@ -101,7 +101,7 @@ The order of priority should be
 Test by logging in as different users
 
 ### [7. Infer appropriate time zone](./templates/7-index.html)
-* Define a `get_timezone` function and use the `babel.timezoneselector` decorator.
+Define a `get_timezone` function and use the `babel.timezoneselector` decorator.
 
 The logic should be the same as `get_locale`:
 
