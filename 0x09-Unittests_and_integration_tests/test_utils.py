@@ -4,7 +4,7 @@
 import unittest
 import requests
 from unittest import mock
-from utils import access_nested_map, get_json
+from utils import access_nested_map, get_json, memoize
 from parameterized import parameterized
 from typing import (
     Tuple,
@@ -45,3 +45,23 @@ class TestGetJson(unittest.TestCase):
         """Method to test get_json function"""
         mock_requests(test_url)
         mock_requests.assert_called_once()
+
+
+class TestMemoize(unittest.TestCase):
+    """Class to test memoize"""
+    def test_memoize(self):
+        """Method to test the memoize function"""
+        class TestClass:
+            """Class definition"""
+            def a_method(self):
+                """a_method method"""
+                return 42
+
+            @memoize
+            def a_property(self):
+                """a_property method"""
+                return self.a_method()
+
+        with mock.patch.object(TestClass, 'a_method') as mock_method:
+            mock_method()
+            mock_method.assert_called_once()
