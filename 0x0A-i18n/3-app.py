@@ -16,12 +16,13 @@ app.config.from_object(Config)
 babel = Babel(app)
 
 
+home_title = gettext(u'home_title')
+home_header = gettext(u'home_header')
+
+
 @app.route('/')
 def render_index():
     """Render template function"""
-    home_title = gettext("Welcome to Holberton")
-    home_header = gettext("Hello world!")
-
     return render_template('3-index.html',
                            home_title=home_title,
                            home_header=home_header
