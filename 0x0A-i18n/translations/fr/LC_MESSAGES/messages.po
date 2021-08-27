@@ -36,4 +36,3 @@ msgstr "Vous êtes connecté en tant que %(username)s."
 #: 5-app.py:61
 msgid "You are not logged in."
 msgstr "Vous n'êtes pas connecté."
-
