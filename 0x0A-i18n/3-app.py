@@ -20,6 +20,12 @@ home_title = gettext(u'home_title')
 home_header = gettext(u'home_header')
 
 
+@babel.localeselector
+def get_locale():
+    """Get locale function"""
+    return request.accept_languages.best_match(app.config['LANGUAGES'])
+
+
 @app.route('/')
 def render_index():
     """Render template function"""
@@ -27,12 +33,6 @@ def render_index():
                            home_title=home_title,
                            home_header=home_header
                            )
-
-
-@babel.localeselector
-def get_locale():
-    """Get locale function"""
-    return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
 if __name__ == "__main__":
