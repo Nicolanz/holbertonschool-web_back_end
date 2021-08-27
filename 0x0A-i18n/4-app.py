@@ -32,18 +32,10 @@ def render_index():
 @babel.localeselector
 def get_locale():
     """Get locale function"""
-    locale = request.__dict__['query_string']
-    locale = locale.decode('utf-8')
-    my_lang = locale.split('=')
-    lang = None
-
-    if len(my_lang) <= 1 or my_lang[0] != "locale":
-        pass
-    else:
-        lang = my_lang[1]
-
-    if lang and lang in app.config['LANGUAGES']:
-        return lang
+    if "locale" in request.args:
+        lang = request.args.get('locale')
+        if lang in app.config['LANGUAGES']:
+            return lang
 
     return request.accept_languages.best_match(Config.LANGUAGES)
 
