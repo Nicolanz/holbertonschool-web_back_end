@@ -32,7 +32,7 @@ def render_index():
 @babel.localeselector
 def get_locale():
     """Get locale function"""
-    return request.accept_languages.best_match(Config.LANGUAGES)
+    return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
 if __name__ == "__main__":
