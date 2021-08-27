@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""3-app config file"""
+"""Module to initialize a basic flask app"""
 from flask import Flask, render_template, request
 from flask_babel import Babel, gettext
 app = Flask(__name__)
 
 
 class Config:
-    """Config class"""
+    """Configuration class"""
     LANGUAGES = ["en", "fr"]
     BABEL_DEFAULT_LOCALE = "en"
     BABEL_DEFAULT_TIMEZONE = "UTC"
