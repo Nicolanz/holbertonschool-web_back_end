@@ -4,6 +4,7 @@ from flask import Flask, render_template, request, g, flash
 from sys import exit
 from flask_babel import Babel, gettext, _
 from typing import Union
+import pytz
 app = Flask(__name__)
 
 app.secret_key = "hello"
@@ -83,6 +84,12 @@ def get_locale():
         return lang
 
     return request.accept_languages.best_match(Config.LANGUAGES)
+
+
+@babel.timezoneselector
+def get_timezone():
+    """get time zone fucntion"""
+    return None
 
 
 if __name__ == "__main__":
