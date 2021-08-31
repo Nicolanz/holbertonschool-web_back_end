@@ -22,7 +22,7 @@ class Cache:
         return key
 
     def get_str(self, element) -> str:
-        """Get string methof"""
+        """Get string method"""
         ele = element.decode('utf-8')
         return ele
 
@@ -38,9 +38,5 @@ class Cache:
             return None
         elif fn is None:
             return ele
-
-        try:
-            val = fn(ele)
-            return val
-        except Exception:
-            return ele
+        else:
+            return fn(ele)
