@@ -34,6 +34,8 @@ class Cache:
         """Gets an element from the Redis hash table"""
         ele = self._redis.get(key)
 
+        if not ele:
+            return None
         try:
             val = fn(ele)
             return val
