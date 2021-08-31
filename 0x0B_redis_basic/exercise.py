@@ -26,9 +26,9 @@ class Cache:
         ele = element.decode('utf-8')
         return ele
 
-    def get_int(self, element) -> int:
+    def get_int(self) -> int:
         """Get int method"""
-        return int(element)
+        return int
 
     def get(self, key: str, fn: Callable = None):
         """Gets an element from the Redis hash table"""
