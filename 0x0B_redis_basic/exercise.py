@@ -2,7 +2,7 @@
 """Exercise Module"""
 
 from uuid import uuid4
-from typing import Union
+from typing import Union, Callable
 import redis
 
 
@@ -20,3 +20,13 @@ class Cache:
         key = str(key)
         self._redis.mset({key: data})
         return key
+
+        """Gets an element from the Redis hash table"""
+    def get(self, key: str, fn: Callable):
+        ele = self._redis.get(key)
+        try:
+            val = fn(ele)
+            return val
+        except Exception:
+            pass
+        return ele
