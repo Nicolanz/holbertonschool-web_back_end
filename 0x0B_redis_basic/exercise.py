@@ -36,6 +36,9 @@ class Cache:
 
         if not ele:
             return None
+        elif fn is None:
+            return ele
+
         try:
             val = fn(ele)
             return val
