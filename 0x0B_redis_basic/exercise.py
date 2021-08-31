@@ -21,17 +21,20 @@ class Cache:
         self._redis.mset({key: data})
         return key
 
-    def get_str(self):
+    def get_str(self, element) -> str:
         """Get string methof"""
-        return str
+        ele = element.decode('utf-8')
+        return ele
 
-    def get_int(self):
+    def get_int(self) -> int:
         """Get int method"""
         return int
 
     def get(self, key: str, fn: Callable):
         """Gets an element from the Redis hash table"""
         ele = self._redis.get(key)
+        if not ele:
+            return None
         try:
             val = fn(ele)
             return val
