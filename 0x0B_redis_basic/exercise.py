@@ -30,7 +30,7 @@ class Cache:
         """Get int method"""
         return int(element)
 
-    def get(self, key: str, fn: Callable) -> Union[str, int, bytes]:
+    def get(self, key: str, fn: Callable = None):
         """Gets an element from the Redis hash table"""
         ele = self._redis.get(key)
 
