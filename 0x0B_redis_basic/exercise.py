@@ -26,18 +26,16 @@ class Cache:
         ele = element.decode('utf-8')
         return ele
 
-    def get_int(self) -> int:
+    def get_int(self, element) -> int:
         """Get int method"""
-        return int
+        return int(element)
 
-    def get(self, key: str, fn: Callable):
+    def get(self, key: str, fn: Callable) -> Union[str, int, bytes]:
         """Gets an element from the Redis hash table"""
         ele = self._redis.get(key)
-        if not ele:
-            return None
+
         try:
             val = fn(ele)
             return val
         except Exception:
-            pass
-        return ele
+            return ele
