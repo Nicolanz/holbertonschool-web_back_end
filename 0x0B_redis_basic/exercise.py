@@ -11,9 +11,9 @@ def count_calls(func: Callable) -> Callable:
     """Decorator to count calls of a function"""
     @wraps(func)
     def wrapper(self, data):
-        """wrapper fuction with coounter functionality"""
-        func(self, data)
+        """wrapper function with coounter functionality"""
         self._redis.incr(func.__qualname__)
+        return func(self, data)
     return wrapper
 
 
