@@ -7,13 +7,13 @@ from functools import wraps
 import redis
 
 
-def count_calls(func: Callable) -> Callable:
+def count_calls(method: Callable) -> Callable:
     """Decorator to count calls of a function"""
-    @wraps(func)
+    @wraps(method)
     def wrapper(self, data):
         """wrapper function with coounter functionality"""
-        self._redis.incr(func.__qualname__)
-        return func(self, data)
+        self._redis.incr(method.__qualname__)
+        return method(self, data)
     return wrapper
 
 
@@ -38,9 +38,9 @@ class Cache:
         ele = element.decode('utf-8')
         return ele
 
-    def get_int(self) -> int:
+    def get_int(self, element) -> int:
         """Get int method"""
-        return int
+        return int(element)
 
     def get(self, key: str, fn: Callable = None):
         """Gets an element from the Redis hash table"""
