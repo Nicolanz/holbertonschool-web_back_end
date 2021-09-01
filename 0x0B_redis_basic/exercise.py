@@ -7,13 +7,13 @@ from functools import wraps
 import redis
 
 
-def count_calls(func: Callable) -> Callable:
+def count_calls(method: Callable) -> Callable:
     """Decorator to count calls of a function"""
-    @wraps(func)
+    @wraps(method)
     def wrapper(self, data):
         """wrapper function with coounter functionality"""
-        self._redis.incr(func.__qualname__)
-        func(self, data)
+        self._redis.incr(method.__qualname__)
+        method(self, data)
     return wrapper
 
 
