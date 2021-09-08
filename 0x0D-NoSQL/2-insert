@@ -1,0 +1,2 @@
+// Command to insert a document into a db
+db.school.insert({name: 'Holberton school'});
