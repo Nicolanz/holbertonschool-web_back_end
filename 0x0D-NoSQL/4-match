@@ -1,0 +1,2 @@
+// Command to list all documents inside a collection
+db.school.find({name: "Holberton school"});
