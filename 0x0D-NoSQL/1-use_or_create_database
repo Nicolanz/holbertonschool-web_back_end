@@ -1,0 +1,2 @@
+// Command to use db
+use my_db;
