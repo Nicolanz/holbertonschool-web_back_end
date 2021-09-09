@@ -7,13 +7,23 @@ from functools import wraps
 import redis
 
 
+def call_history(method:Callable) -> Callable:
+    """"""
+    @wraps(method)
+    def wrapper(self, data):
+        """"""
+        self._redis.rpush(method.__qualname__)
+        return method(self, data)
+    return wrapper
+
+
 def count_calls(method: Callable) -> Callable:
     """Decorator to count calls of a function"""
     @wraps(method)
     def wrapper(self, data):
         """wrapper function with coounter functionality"""
         self._redis.incr(method.__qualname__)
-        method(self, data)
+        return method(self, data)
     return wrapper
 
 
@@ -25,6 +35,7 @@ class Cache:
         self._redis = redis.Redis()
         self._redis.flushdb()
 
+    @call_history
     @count_calls
     def store(self, data: Union[str, bytes, int, float]) -> str:
         """Stores data in redis hash table"""
