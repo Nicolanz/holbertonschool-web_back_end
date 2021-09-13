@@ -50,6 +50,9 @@ Knowing that the functions in `utils.js` return promises, use the prototype belo
 ### [8. Throw error / try catch](./8-try.js)
 * Write a function named `divideFunction` that will accept two arguments: `numerator` (Number) and `denominator` (Number).
 
+### [9. Throw an error](./9-try.js)
+* Write a function named `guardrail` that will accept one argument `mathFunction` (Function).
+
 ---
 
 ## Author
