@@ -1,13 +1,8 @@
 export default function handleResponseFromAPI(promise) {
-    promise
-	.then(() => {
-		console.log({status: 200, body: 'Success'})
-	    return ({ status: 200, body: 'Success' });
-	})
-    .catch(() => {
-	    return (new Error())
-	})
+  promise
+    .then(() => ({ status: 200, body: 'Success' }))
+    .catch(() => (new Error()))
     .then(() => {
-	    console.log("Got a response from the API");
-	});
+      console.log('Got a response from the API');
+    });
 }
