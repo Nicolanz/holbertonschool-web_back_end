@@ -4,11 +4,11 @@ export default function handleProfileSignup() {
   const upPicture = uploadPhoto();
   const createUs = createUser();
 
-  upPicture
-    .then((event) => { process.stdout.write(`${event.body} `); })
-    .catch(() => { console.log('Signup system offline'); });
-
-  createUs
-    .then((res) => { console.log(res.firstName, res.lastName); })
-    .catch(() => { console.log('Signup system offline'); });
+  Promise
+    .all([upPicture, createUs]).then((values) => {
+      console.log(`${values[0].body} ${values[1].firstName} ${values[1].lastName}`);
+    })
+    .catch(() => {
+      console.log('Signup system offline');
+    });
 }
