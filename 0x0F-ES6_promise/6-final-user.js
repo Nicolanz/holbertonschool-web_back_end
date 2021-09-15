@@ -11,7 +11,7 @@ export default function handleProfileSignup(firstName, lastName, fileName) {
       for (const i of values) {
         myArray.push({
           status: i.status,
-          value: i.value,
+          value: (i.value !== undefined) ? i.value : i.reason,
         });
       }
       return myArray;
