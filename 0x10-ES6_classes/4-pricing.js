@@ -24,7 +24,9 @@ export default class Pricing {
     return `${this.amount} ${this.currency.name} (${this.currency.code})`;
   }
 
+  /* eslint-disable */
   convertPrice(amount, conversionRate) {
-    return this.amount * conversionRate;
+    return amount * conversionRate;
   }
+  /* eslint-enable */
 }
