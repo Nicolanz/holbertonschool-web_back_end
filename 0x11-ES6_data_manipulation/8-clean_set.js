@@ -1,6 +1,6 @@
 export default function cleanSet(set, startString) {
   let myStr = '';
-  if (!startString) {
+  if (!startString || startString.length === 0 || typeof startString !== 'string') {
     return myStr;
   }
 
