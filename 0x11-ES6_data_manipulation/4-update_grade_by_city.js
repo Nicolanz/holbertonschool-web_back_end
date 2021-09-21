@@ -1,5 +1,10 @@
 export default function updateStudentGradeByCity(getListStudents, city, newGrades) {
   const newList = [];
+
+  if (Array.isArray(getListStudents) === false || Array.isArray(newGrades) === false) {
+    return newList;
+  }
+
   getListStudents.filter((obj) => obj.location === city).map((x) => {
     const newObj = x;
     newGrades.map((i) => {
