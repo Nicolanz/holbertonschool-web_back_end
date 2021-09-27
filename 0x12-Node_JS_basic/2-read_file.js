@@ -8,14 +8,13 @@ function countStudents() {
 
     data = data.split('\n');
 
-    for (const i in data) {
+    for (let i = 0; i < data.length; i += 1) {
       data[i] = data[i].split(',');
     }
-
     for (let i = 1; i < data.length; i += 1) {
       if (data[i].length > 1) {
         counter += 1;
-        if (!newObj.hasOwnProperty(data[i][data[i].length - 1])) {
+        if (!Object.prototype.hasOwnProperty.call(newObj, data[i][data[i].length - 1])) {
           newObj[data[i][data[i].length - 1]] = {
             count: 1,
             names: [data[i][0]],
@@ -26,10 +25,11 @@ function countStudents() {
         }
       }
     }
+    const keys = Object.keys(newObj);
     console.log(`Number of students: ${counter}`);
 
-    for (const property in newObj) {
-      console.log(`Number of students in ${property}: ${newObj[property].count}. List: ${newObj[property].names.join(', ')}`);
+    for (let i = 0; i < keys.length; i += 1) {
+      console.log(`Number of students in ${keys[i]}: ${newObj[keys[i]].count}. List: ${newObj[keys[i]].names.join(', ')}`);
     }
   } catch (e) {
     throw new Error('Cannot load the database');
