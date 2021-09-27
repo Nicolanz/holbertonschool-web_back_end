@@ -2,7 +2,7 @@ const fs = require('fs');
 
 function countStudents() {
   try {
-    let data = fs.readFileSync('./database.csv', { encoding: 'utf8', flag: 'r' });
+    let data = fs.readFileSync('database.csv', { encoding: 'utf8', flag: 'r' });
     let counter = 0;
     const newObj = {};
 
