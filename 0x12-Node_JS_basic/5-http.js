@@ -12,12 +12,13 @@ const app = http.createServer((req, res) => {
     res.end('Hello Holberton School!');
   } else if (req.url === '/students') {
     countStudents(process.argv[2]).then((value) => {
-      res.end(`This is the list of our students\n${value}`);
+      res.write('This is the list of our students\n');
+      res.end(value);
     }).catch((err) => {
-      res.end(`${err.name}: ${err.message}`);
+      res.end(`${err.message}`);
     });
   } else {
-    res.end('Hello Holberton School!');
+    res.end();
   }
 });
 
