@@ -38,7 +38,7 @@ function countStudents(database) {
           str += `Number of students in ${keys[i]}: ${newObj[keys[i]].count}. List: ${newObj[keys[i]].names.join(', ')}\n`;
           console.log(`Number of students in ${keys[i]}: ${newObj[keys[i]].count}. List: ${newObj[keys[i]].names.join(', ')}`);
         }
-        resolve(str.substring(0, str.length - 1));
+        resolve(str);
       }
     });
   });
