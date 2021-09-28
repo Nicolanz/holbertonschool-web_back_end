@@ -13,7 +13,8 @@ app.get('/students', (req, res) => {
     res.write('This is the list of our students\n');
     res.end(value);
   }).catch((err) => {
-    res.send(`${err.message}`);
+    res.write('This is the list of our students\n');
+    res.end(`${err.message}`);
   });
 });
 
