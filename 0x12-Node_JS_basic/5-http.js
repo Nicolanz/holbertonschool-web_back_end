@@ -16,6 +16,8 @@ const app = http.createServer((req, res) => {
     }).catch((err) => {
       res.end(err.message);
     });
+  } else {
+    res.end('Hello Holberton School!');
   }
 });
 
